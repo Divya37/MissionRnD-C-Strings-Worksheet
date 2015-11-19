@@ -1,25 +1,71 @@
-/*
-OVERVIEW: Given a float number ,Convert it into a string 
+#include<stdio.h>
 
-INPUTS: A Float,Final string ,How many digits after decimal has to be displayed .
-Its zero for integers.
+long power(int num, int pow)
+{
+	long result = 1, i;
+	for (i = 0; i < pow; i++)
+		result = result*num;
+	return result;
+}
+void number_to_str(float number, char *str, int afterdecimal)
+{
+	long temp, temp_num;
+	int rem, i, len, j;
+	char var;
+	temp = number*power(10, afterdecimal);
+	temp_num = temp;
 
+	if (temp < 0)
+		temp_num = -1 * temp_num;
 
-OUTPUT: No need to output anything ,Modify the str in function parameter such that it
-now holds the string format of the float number specified
-
-Example : number_to_str(345,str,0);
-Should copy "345\0" in the str;
-number_to_str(345.342,str,2);
-Should copy "345.34" in the str;
-
-NOTES: Don't create new string.
-
-*/
-
-#include <stdio.h>
-
-
-void number_to_str(float number, char *str,int afterdecimal){
+	for (i = 0; temp_num > 0; i++)
+		temp_num = temp_num / 10;
+	len = i;
 	
+	if (temp > 0)
+	{
+		i = 0;
+		temp_num = temp;
+	}
+	else
+	{
+		i = 1;
+		str[0] = '-';
+		afterdecimal++;
+		temp_num = -1 * temp;
+	}
+	
+	for (i = i; temp_num > 0; i++)
+	{
+		if (i < afterdecimal)
+		{
+			rem = temp_num % 10;
+			str[i] = rem + 48;
+			temp_num = temp_num / 10;
+		}
+
+		else if (i > afterdecimal)
+		{
+			rem = temp_num % 10;
+			str[i] = rem + 48;
+			temp_num = temp_num / 10;
+		}
+		else
+			str[i] = '.';
+	}
+	
+	len = i;
+	if (temp > 0)
+		i = 0;
+	else
+	{
+		i = 1;
+		str[0] = '-';
+	}
+	for (i = i, j = len - 1; i <= j; i++, j--)
+	{
+		var = str[i];
+		str[i] = str[j];
+		str[j] = var;
+	}
 }

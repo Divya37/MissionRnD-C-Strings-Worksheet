@@ -1,16 +1,25 @@
-/*
-OVERVIEW: Given a string, return the Kth index from the end of the string.
-E.g.: Input: "qwertyui", 3. Output: 't' (index starting from zero).
+#include<stdio.h>
 
-INPUTS: A string and value of K.
-
-OUTPUT: Return the Kth index from the end of the string (index starting from zero).
-
-ERROR CASES: Return '\0' for invalid inputs.
-
-NOTES:
-*/
-
-char KthIndexFromEnd(char *str, int K) {
-	return '\0';
+int length(char *string)
+{
+	int i;
+	for (i = 0; string[i] != '\0'; i++);
+	return i;
+}
+char KthIndexFromEnd(char *str, int K)
+{
+	int i;
+	if (str == NULL || K<0 || length(str)<K)
+		return '\0';
+	else
+	{
+		if (length(str) == K)
+			return str[0];
+		else if (K == 0)
+			return str[length(str) - 1];
+		else
+		{
+			return str[length(str) - K - 1];
+		}
+	}
 }
